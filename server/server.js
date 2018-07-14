@@ -30,8 +30,6 @@ app.get('/todos', (req, res) => {
     });
 });
 
-// GET /todos/123123
-
 app.get('/todos/:id', (req, res) => {
     var id = req.params.id;
 
