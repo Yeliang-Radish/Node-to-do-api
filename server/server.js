@@ -114,6 +114,10 @@ app.post('/users', (req, res) => {
     }); 
 });
 
+app.get('/users/me', authenticate, (req, res) => {
+    res.send(req.user);
+});
+
 app.post('/users/login', (req, res) => {
     var body = _.pick(req.body, ['email', 'password']);
 
@@ -121,14 +125,9 @@ app.post('/users/login', (req, res) => {
         return user.generateAuthToken().then((token) => {
             res.header('x-auth', token).send(user);
         });
-        res.send(user);
     }).catch((e) => {
         res.status(400).send();
     });
-});
-
-app.get('/users/me', authenticate, (req, res) => {
-    res.send(req.user);
 });
 
 app.listen(port, () => {
